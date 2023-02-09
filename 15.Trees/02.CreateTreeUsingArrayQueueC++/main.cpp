@@ -9,7 +9,7 @@ private:
     Node* root;
 public:
     Tree(){root = NULL;}
-    ~Tree(){}
+    ~Tree(){DestroyTree(root);}
     void Create();
     void Preorder(){Preorder(root);}
     void Preorder(Node* p);
@@ -21,6 +21,7 @@ public:
     void LevelOrder(Node* p);
     int Height(){Height(root);}
     int Height(Node* p);
+    void DestroyTree(Node* p);
 };
 
 void Tree::Create()
@@ -123,7 +124,15 @@ int Tree::Height(struct Node* p)
 
     return x > y? x+1 : y+1;
 }
-
+void Tree::DestroyTree(Node* p)
+{
+    if(p)
+    {
+        DestroyTree(p->lchild);
+        DestroyTree(p->rchild);
+        delete p;
+    }
+}
 
 int main()
 {
